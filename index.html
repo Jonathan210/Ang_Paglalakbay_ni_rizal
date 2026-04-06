@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="tl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ang Paglalakbay ni Rizal</title>
+    
+    <link rel="icon" href="icon2.png" type="image/x-icon" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- grain -->
+    <div class="grain"></div>
+
+    <!-- video background -->
+    <div class="video-bg">
+        <video autoplay muted loop playsinline>
+            <source src="bg1.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="site-wrap">
+
+        <header>
+            <div class="header-eyebrow">1861 – 1896 · Pilipinas &amp; Europa</div>
+            <h1>Ang Paglalakbay ni<br><em>Jose Rizal</em></h1>
+            <p class="header-sub">Sinusundan ang mga yapak ng Dakilang Malayan</p>
+            <div class="header-line"></div>
+
+            <div class="nav">
+                <button id="btn-all" class="active" onclick="showAll()">Lahat ng Destinasyon</button>
+                <button id="btn-ph" onclick="filterPH()">Pilipinas</button>
+                <button id="btn-abroad" onclick="filterAbroad()">Ibayong-dagat</button>
+            </div>
+        </header>
+
+        <div class="container">
+            <div class="search-wrap">
+                <input type="text" id="search" placeholder="Maghanap ng lugar o taon…" onkeyup="searchData()">
+            </div>
+            <div class="result-count" id="resultCount"></div>
+            <div class="timeline" id="timeline"></div>
+        </div>
+
+        <!-- ── BACKGROUND SECTION ── -->
+        <section class="bio-section container">
+            <div class="bio-header">
+                <div class="header-eyebrow" style="opacity:1; animation:none;">Tungkol sa Bayani</div>
+                <h2 class="bio-title">Si <em>Jose Rizal</em></h2>
+                <div class="header-line" style="opacity:1; animation:none; margin-bottom: 48px;"></div>
+            </div>
+
+            <div class="bio-grid">
+
+                <!-- Maagang Buhay -->
+                <div class="bio-card">
+                    <div class="bio-icon">🌱</div>
+                    <h3>Maagang Buhay</h3>
+                    <div class="card-divider"></div>
+                    <p>Ipinanganak si Jose Protasio Rizal Mercado y Alonso Realonda noong <strong>Hunyo 19, 1861</strong> sa Calamba, Laguna. Siya ang ikapit sa sampung magkakapatid. Mula sa pagkabata, nagpakita na siya ng kahusayan sa sining, tula, at agham. Sa edad na tatlo, natutong bumasa at mula sa kanyang ina, si Doña Teodora Alonso, natutunan niya ang pagmamahal sa kaalaman.</p>
+                </div>
+
+                <!-- Pamilya -->
+                <div class="bio-card">
+                    <div class="bio-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Pamilya</h3>
+                    <div class="card-divider"></div>
+                    <p>Ang ama ni Rizal na si <strong>Francisco Mercado Rizal</strong> ay isang magsasakang maylupa, samantalang ang kanyang ina na si <strong>Doña Teodora Alonso Realonda</strong> ay isang matalinong babae na personal na nagturo sa kanya. Siya ang pang-alabing anak sa kanyang pamilya. Ang kanyang kapatid na babae na si <strong>Saturnina</strong> ang panganay, at si <strong>Paciano</strong> ang kanyang kapatid na lalaki na naging malaking impluwensya sa kanyang buhay.</p>
+                </div>
+
+                <!-- Edukasyon -->
+                <div class="bio-card">
+                    <div class="bio-icon">📚</div>
+                    <h3>Edukasyon</h3>
+                    <div class="card-divider"></div>
+                    <p>Nag-aral si Rizal sa <strong>Ateneo Municipal de Manila</strong> kung saan natapos niya ang kursong Bachelor of Arts nang may pinakamataas na karangalan. Nagpatuloy siya sa <strong>Universidad de Santo Tomas</strong> para sa medisina, bago lumipat sa <strong>Universidad Central de Madrid</strong>. Nagkamit siya ng lisensya sa medisina at ng doktoradong digri sa pilosopiya at titolohiya. Siya rin ay isang poliglot — nagsasalita ng higit sa <strong>22 wika</strong>.</p>
+                </div>
+
+                <!-- Buhay-Pag-ibig -->
+                <div class="bio-card">
+                    <div class="bio-icon">❤️</div>
+                    <h3>Buhay-Pag-ibig</h3>
+                    <div class="card-divider"></div>
+                    <p>Si Rizal ay may ilang pag-ibigang nakilala sa kasaysayan. Una ay si <strong>Segunda Katigbak</strong>, ang kanyang unang pag-ibig sa Batangas. Sa Europa, naging malapit siya kay <strong>O-Sei-San (Seiko Usui)</strong> sa Japan, at kay <strong>Gertrude Beckett</strong> sa London. Ang pinakakilala ay ang relasyon niya kay <strong>Josephine Bracken</strong>, ang Irishang babae na sumama sa kanya sa Dapitan at naging kasama niya hanggang sa katapusan ng kanyang buhay.</p>
+                </div>
+
+                <!-- Mga Akda -->
+                <div class="bio-card">
+                    <div class="bio-icon">✍️</div>
+                    <h3>Mga Akda at Ambag</h3>
+                    <div class="card-divider"></div>
+                    <p>Ang pinaka-tanyag na mga akda ni Rizal ay ang dalawang nobela: ang <strong>'Noli Me Tangere' (1887)</strong> at ang <strong>'El Filibusterismo' (1891)</strong>, na parehong nagbunyag ng kasamaan ng kolonyalismong Espanyol. Sumulat din siya ng mga tula tulad ng <strong>'Mi Último Adiós'</strong> at <strong>'A La Juventud Filipina'</strong>. Bukod sa pagsusulat, siya ay isang doktor, pintor, eskultor, at siyentipiko.</p>
+                </div>
+
+                <!-- Pamana -->
+                <div class="bio-card">
+                    <div class="bio-icon">🏅</div>
+                    <h3>Pamana at Pagkilala</h3>
+                    <div class="card-divider"></div>
+                    <p>Si Jose Rizal ay kinikilalang <strong>Pambansang Bayani ng Pilipinas</strong>. Ang kanyang kamatayan noong <strong>Disyembre 30, 1896</strong>, sa edad na 35, ay nagsilbing inspirasyon ng Rebolusyong Pilipino. Sa pamamagitan ng Batas Republika Blg. 1425 (Batas Rizal), ipinag-uutos ng pamahalaan ang pag-aaral ng kanyang buhay at mga akda sa lahat ng antas ng paaralan sa buong bansa.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-line"></div>
+            <p>Pang-edukasyong Website &nbsp;·&nbsp; Ang Paglalakbay ni Jose Rizal</p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+        <div class="modal-box" id="modalBox">
+            <button class="modal-close" onclick="closeModal()">&#x2715;</button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
