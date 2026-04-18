@@ -194,7 +194,7 @@ function initCursor() {
     return;
   }
 
-  const dot  = document.createElement('div'); dot.id = 'cur';
+  const dot = document.createElement('div'); dot.id = 'cur';
   const ring = document.createElement('div'); ring.id = 'cur-ring';
   document.body.appendChild(dot);
   document.body.appendChild(ring);
@@ -340,7 +340,7 @@ function initDragScroll(el) {
     startX = e.pageX - el.offsetLeft;
     scrollLeft = el.scrollLeft;
   });
-  ['mouseleave','mouseup'].forEach(ev => el.addEventListener(ev, () => {
+  ['mouseleave', 'mouseup'].forEach(ev => el.addEventListener(ev, () => {
     isDown = false; el.style.userSelect = '';
     setTimeout(() => isDragging = false, 50);
   }));
@@ -451,11 +451,11 @@ window.showAll = function () {
   renderCards(journey);
   setBtn('btn-all');
 };
-window.searchData = function() {
+window.searchData = function () {
   const q = document.getElementById('search').value.toLowerCase().trim();
   const pool = getPool();
   renderCards(!q ? pool : pool.filter(item =>
-    item.place.toLowerCase().includes(q)  ||
+    item.place.toLowerCase().includes(q) ||
     item.country.toLowerCase().includes(q) ||
     item.year.toLowerCase().includes(q) ||
     item.desc.toLowerCase().includes(q)
@@ -505,12 +505,35 @@ function initScrollUtils() {
   const pBar = document.getElementById('progress-bar');
   const bTop = document.getElementById('back-top');
 
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
   addEventListener('scroll', () => {
     const st = scrollY;
     const dh = document.documentElement.scrollHeight - innerHeight;
     if (pBar) pBar.style.width = dh > 0 ? `${(st / dh) * 100}%` : '0%';
     if (bTop) bTop.classList.toggle('vis', st > 500);
   }, { passive: true });
+}
+
+/* ────────────────────────────────────────────────────────────
+   SCROLL POSITION RESTORE
+   ──────────────────────────────────────────────────────────── */
+function restoreScrollPosition() {
+  // Ensure we start at the top right away
+  window.scrollTo(0, 0);
+
+  // Also enforce the top-reset after the loader is hidden
+  const ldr = document.getElementById('loader');
+  if (!ldr) return;
+  const obs = new MutationObserver(() => {
+    if (ldr.classList.contains('out')) {
+      obs.disconnect();
+      setTimeout(() => window.scrollTo({ top: 0, behavior: 'instant' }), 10);
+    }
+  });
+  obs.observe(ldr, { attributes: true, attributeFilter: ['class'] });
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -522,16 +545,60 @@ function initMusic() {
   const bars = document.getElementById('music-bars');
   if (!audio || !btn) return;
 
+  // Set volume to 50%
+  audio.volume = 0.5;
+
   let playing = false;
   const playSvg = `<svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><polygon points="3,1 12,6.5 3,12"/></svg>`;
   const pauseSvg = `<svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><rect x="2" y="1" width="4" height="11" rx="1"/><rect x="7" y="1" width="4" height="11" rx="1"/></svg>`;
 
+  function startPlaying() {
+    audio.play().then(() => {
+      playing = true;
+      if (bars) bars.classList.add('on');
+      btn.innerHTML = pauseSvg;
+    }).catch(() => {
+      // Autoplay blocked — wait for first user interaction
+      const unlockAutoplay = () => {
+        audio.play().then(() => {
+          playing = true;
+          if (bars) bars.classList.add('on');
+          btn.innerHTML = pauseSvg;
+        }).catch(() => { });
+        document.removeEventListener('click', unlockAutoplay);
+        document.removeEventListener('keydown', unlockAutoplay);
+        document.removeEventListener('touchstart', unlockAutoplay);
+      };
+      document.addEventListener('click', unlockAutoplay, { once: true });
+      document.addEventListener('keydown', unlockAutoplay, { once: true });
+      document.addEventListener('touchstart', unlockAutoplay, { once: true });
+    });
+  }
+
   btn.addEventListener('click', () => {
-    playing ? audio.pause() : audio.play().catch(() => { });
-    playing = !playing;
-    if (bars) bars.classList.toggle('on', playing);
-    btn.innerHTML = playing ? pauseSvg : playSvg;
+    if (playing) {
+      audio.pause();
+      playing = false;
+      if (bars) bars.classList.remove('on');
+      btn.innerHTML = playSvg;
+    } else {
+      audio.play().catch(() => { });
+      playing = true;
+      if (bars) bars.classList.add('on');
+      btn.innerHTML = pauseSvg;
+    }
   });
+
+  // Auto-play after the loader finishes
+  const ldrAutoplay = new MutationObserver(() => {
+    const ldr = document.getElementById('loader');
+    if (ldr && ldr.classList.contains('out')) {
+      ldrAutoplay.disconnect();
+      startPlaying();
+    }
+  });
+  const ldrEl = document.getElementById('loader');
+  if (ldrEl) ldrAutoplay.observe(ldrEl, { attributes: true, attributeFilter: ['class'] });
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -583,6 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initClosing();
   initKeyboard();
   initBioReveal();
+  restoreScrollPosition();
 });
 /* ════════════════════════════════════════════════════════════
    SOUND EFFECTS ENGINE (Web Audio API — no external files)
@@ -600,7 +668,7 @@ const SFX = (() => {
 
   // Generic tone builder
   function tone({ freq = 440, type = 'sine', attack = 0.01, sustain = 0.05, release = 0.18,
-                   vol = 0.18, startTime = 0, freqEnd = null, filter = null } = {}) {
+    vol = 0.18, startTime = 0, freqEnd = null, filter = null } = {}) {
     if (!enabled) return;
     const c = getCtx();
     const t = c.currentTime + startTime;
@@ -734,17 +802,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Patch modal open/close with sounds ──
   const _origSetModal = window.openJourneyModal;
-  window.openJourneyModal = function(i) {
+  window.openJourneyModal = function (i) {
     SFX.modalOpen();
     _origSetModal(i);
   };
   const _origBioModal = window.openBioModal;
-  window.openBioModal = function(i) {
+  window.openBioModal = function (i) {
     SFX.modalOpen();
     _origBioModal(i);
   };
   const _origClose = window.closeModal;
-  window.closeModal = function() {
+  window.closeModal = function () {
     SFX.modalClose();
     _origClose();
   };
