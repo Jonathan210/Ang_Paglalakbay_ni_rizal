@@ -584,3 +584,204 @@ document.addEventListener('DOMContentLoaded', () => {
   initKeyboard();
   initBioReveal();
 });
+/* ════════════════════════════════════════════════════════════
+   SOUND EFFECTS ENGINE (Web Audio API — no external files)
+   ════════════════════════════════════════════════════════════ */
+
+const SFX = (() => {
+  let ctx = null;
+  let enabled = true;
+
+  function getCtx() {
+    if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  // Generic tone builder
+  function tone({ freq = 440, type = 'sine', attack = 0.01, sustain = 0.05, release = 0.18,
+                   vol = 0.18, startTime = 0, freqEnd = null, filter = null } = {}) {
+    if (!enabled) return;
+    const c = getCtx();
+    const t = c.currentTime + startTime;
+
+    const osc = c.createOscillator();
+    const gain = c.createGain();
+
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq, t);
+    if (freqEnd) osc.frequency.exponentialRampToValueAtTime(freqEnd, t + attack + sustain + release);
+
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(vol, t + attack);
+    gain.gain.setValueAtTime(vol, t + attack + sustain);
+    gain.gain.exponentialRampToValueAtTime(0.0001, t + attack + sustain + release);
+
+    if (filter) {
+      const bq = c.createBiquadFilter();
+      bq.type = filter.type || 'lowpass';
+      bq.frequency.value = filter.freq || 2000;
+      bq.Q.value = filter.Q || 1;
+      osc.connect(bq); bq.connect(gain);
+    } else {
+      osc.connect(gain);
+    }
+
+    gain.connect(c.destination);
+    osc.start(t);
+    osc.stop(t + attack + sustain + release + 0.05);
+  }
+
+  return {
+    // ── UI click — soft, antique bell-like ──
+    click() {
+      tone({ freq: 880, type: 'sine', attack: 0.005, sustain: 0.01, release: 0.28, vol: 0.12 });
+      tone({ freq: 1320, type: 'sine', attack: 0.005, sustain: 0.005, release: 0.2, vol: 0.05, startTime: 0.005 });
+    },
+
+    // ── Modal open — elegant chime up ──
+    modalOpen() {
+      [0, 0.08, 0.16].forEach((t, i) => {
+        tone({ freq: [523, 659, 784][i], type: 'sine', attack: 0.01, sustain: 0.04, release: 0.5, vol: 0.10, startTime: t });
+      });
+    },
+
+    // ── Modal close — chime down ──
+    modalClose() {
+      [0, 0.07].forEach((t, i) => {
+        tone({ freq: [659, 523][i], type: 'sine', attack: 0.01, sustain: 0.02, release: 0.35, vol: 0.08, startTime: t });
+      });
+    },
+
+    // ── Card hover — very subtle tick ──
+    hover() {
+      tone({ freq: 1200, type: 'sine', attack: 0.003, sustain: 0.003, release: 0.08, vol: 0.05 });
+    },
+
+    // ── Filter/nav button — short pluck ──
+    button() {
+      tone({ freq: 440, type: 'triangle', attack: 0.005, sustain: 0.01, release: 0.22, vol: 0.10 });
+      tone({ freq: 880, type: 'sine', attack: 0.005, sustain: 0.005, release: 0.15, vol: 0.04, startTime: 0.003 });
+    },
+
+    // ── Loader complete — triumphant rise ──
+    loaderDone() {
+      const notes = [523, 659, 784, 1047];
+      notes.forEach((f, i) => {
+        tone({ freq: f, type: 'sine', attack: 0.02, sustain: 0.08, release: 0.6, vol: 0.12, startTime: i * 0.12 });
+      });
+    },
+
+    // ── Timeline item hover — subtle shimmer ──
+    tlHover() {
+      tone({ freq: 1046, type: 'sine', attack: 0.004, sustain: 0.003, release: 0.12, vol: 0.06 });
+    },
+
+    // ── Back-to-top — whoosh ──
+    whoosh() {
+      tone({ freq: 200, freqEnd: 600, type: 'sine', attack: 0.01, sustain: 0.05, release: 0.25, vol: 0.10 });
+    },
+
+    // ── Scroll milestone ping ──
+    milestone() {
+      tone({ freq: 783, type: 'sine', attack: 0.01, sustain: 0.03, release: 0.5, vol: 0.08 });
+    },
+
+    setEnabled(v) { enabled = v; },
+    isEnabled() { return enabled; }
+  };
+})();
+
+/* ────────────────────────────────────────────────────────────
+   SOUND INDICATOR FLASH
+   ──────────────────────────────────────────────────────────── */
+function flashSoundIndicator(emoji) {
+  const el = document.getElementById('sound-indicator');
+  if (!el) return;
+  el.textContent = emoji;
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove('show'), 500);
+}
+
+/* ────────────────────────────────────────────────────────────
+   PATCH EXISTING INTERACTIONS WITH SOUND
+   ──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // ── Cards & bio-cards: hover + click ──
+  document.addEventListener('mouseover', e => {
+    const card = e.target.closest('.card, .bio-card, .tl-item');
+    if (card && !card._hovered) { card._hovered = true; SFX.hover(); }
+  });
+  document.addEventListener('mouseout', e => {
+    const card = e.target.closest('.card, .bio-card, .tl-item');
+    if (card) card._hovered = false;
+  });
+
+  // ── Nav links ──
+  document.querySelectorAll('.nav-link').forEach(el => {
+    el.addEventListener('click', () => SFX.click());
+  });
+
+  // ── Filter buttons ──
+  document.querySelectorAll('.dest-btn').forEach(el => {
+    el.addEventListener('click', () => SFX.button());
+  });
+
+  // ── Back to top ──
+  const bTop = document.getElementById('back-top');
+  if (bTop) bTop.addEventListener('click', () => SFX.whoosh());
+
+  // ── Patch modal open/close with sounds ──
+  const _origSetModal = window.openJourneyModal;
+  window.openJourneyModal = function(i) {
+    SFX.modalOpen();
+    _origSetModal(i);
+  };
+  const _origBioModal = window.openBioModal;
+  window.openBioModal = function(i) {
+    SFX.modalOpen();
+    _origBioModal(i);
+  };
+  const _origClose = window.closeModal;
+  window.closeModal = function() {
+    SFX.modalClose();
+    _origClose();
+  };
+
+  // ── Scroll milestones ──
+  let lastMilestone = 0;
+  window.addEventListener('scroll', () => {
+    const p = scrollY / (document.documentElement.scrollHeight - innerHeight);
+    const m = Math.floor(p * 4);
+    if (m > lastMilestone && m <= 3) { lastMilestone = m; SFX.milestone(); }
+  }, { passive: true });
+
+  // ── Sound toggle on music btn — also toggle sfx ──
+  const musicBtn = document.getElementById('music-btn');
+  if (musicBtn) {
+    const orig = musicBtn.onclick;
+    musicBtn.addEventListener('click', () => SFX.button(), true);
+  }
+
+  // ── Loader done sound (patched in after loader finishes) ──
+  const _ldrObs = new MutationObserver(() => {
+    const ldr = document.getElementById('loader');
+    if (ldr && ldr.classList.contains('out')) {
+      SFX.loaderDone();
+      _ldrObs.disconnect();
+    }
+  });
+  const ldr = document.getElementById('loader');
+  if (ldr) _ldrObs.observe(ldr, { attributes: true, attributeFilter: ['class'] });
+
+  // ── Search input ──
+  const searchEl = document.getElementById('search');
+  if (searchEl) {
+    let debounce;
+    searchEl.addEventListener('keyup', () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(() => SFX.click(), 150);
+    });
+  }
+});
