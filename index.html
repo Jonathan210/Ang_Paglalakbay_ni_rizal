@@ -2,159 +2,428 @@
 <html lang="tl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Ang Paglalakbay ni Rizal</title>
-
     <link rel="icon" href="assets/icon2.png" type="image/x-icon" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <div id="progressBar"></div>
-    <div id="cursorOuter" class="cursor-outer"></div>
-    <div id="cursorInner" class="cursor-inner"></div>
 
-    <div class="grain"></div>
-
-    <div class="video-bg">
-        <video autoplay muted loop playsinline>
-            <source src="assets/bg1.mp4" type="video/mp4">
-        </video>
+    <!-- LOADER -->
+    <div id="loader">
+        <div id="loader-inner">
+            <div id="loader-bar-wrap">
+                <div id="loader-bar"></div>
+            </div>
+            <p id="loader-step"></p>
+            <p id="loader-year"></p>
+            <p id="loader-sub">Ang Paglalakbay ni Rizal</p>
+        </div>
     </div>
 
-    <div class="site-wrap">
-        <header>
-            <div class="header-eyebrow">1861 – 1896 · Pilipinas &amp; Europa</div>
-            <h1>Ang Paglalakbay ni<br><em>Jose Rizal</em></h1>
-            <p class="header-sub">Sinusundan ang mga yapak ng Dakilang Malayan</p>
-            <div class="header-line"></div>
-            <div class="nav">
-                <button id="btn-all" class="active" onclick="showAll()" aria-label="Ipakita lahat ng destinasyon">Lahat ng Destinasyon</button>
-                <button id="btn-ph" onclick="filterPH()" aria-label="Salain: Pilipinas lamang">Pilipinas</button>
-                <button id="btn-abroad" onclick="filterAbroad()" aria-label="Salain: Ibayong-dagat lamang">Ibayong-dagat</button>
-            </div>
-        </header>
+    <canvas id="grain-canvas"></canvas>
+    <div id="progress-bar"></div>
 
-        <div class="container">
-            <div class="search-wrap">
-                <input type="text" id="search" placeholder="Maghanap ng lugar o taon…" onkeyup="searchData()" aria-label="Maghanap ng destinasyon">
-            </div>
-            <div id="resultCount" style="margin-bottom: 20px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; text-align: center;"></div>
-            <div class="timeline" id="timeline"></div>
+    <!-- SCROLL BADGE -->
+    <div id="scroll-badge" class="gone">
+        <svg class="sb-ring" viewBox="0 0 160 160">
+            <defs>
+                <path id="sbc" d="M80,80 m-52,0 a52,52 0 1,1 104,0 a52,52 0 1,1 -104,0" />
+            </defs>
+            <text class="sb-text">
+                <textPath href="#sbc" startOffset="0%">I-SCROLL · ANG · KASAYSAYAN · · ·</textPath>
+            </text>
+        </svg>
+        <div class="sb-dot">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <line x1="8" y1="2" x2="8" y2="13" stroke="#c9a84c" stroke-width="1.2" stroke-linecap="round" />
+                <polyline points="4,9 8,13 12,9" fill="none" stroke="#c9a84c" stroke-width="1.2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- TOP NAV -->
+    <nav id="top-nav">
+        <a class="nav-link" href="#destinations">Destinasyon</a>
+        <div class="nav-dot"></div>
+        <a class="nav-link" href="#bio">Talambuhay</a>
+    </nav>
+
+    <div class="page">
+        <div class="vid-bg">
+            <video autoplay muted loop playsinline>
+                <source src="assets/bg1.mp4" type="video/mp4">
+            </video>
         </div>
 
-        <section class="bio-section container">
-            <div class="bio-header">
-                <div class="header-eyebrow">Tungkol sa Bayani</div>
-                <h2 class="bio-title">Si <em>Jose Rizal</em></h2>
-                <div class="header-line" style="margin-bottom: 48px;"></div>
+        <!-- HERO -->
+        <section id="hero">
+            <span class="hero-ghost">Rizal</span>
+            <div class="hero-left">
+                <p class="hero-eyebrow">1861 – 1896 &nbsp;·&nbsp; Pilipinas &amp; Europa</p>
+                <h1 class="hero-title">
+                    <span class="line-sm">Ang Paglalakbay ni</span>
+                    <span class="line-gold">Jose&nbsp;Rizal</span>
+                </h1>
+                <p class="hero-body">Sinusundan ang mga yapak ng <strong>Dakilang Malayan</strong> — tatlumpu't limang
+                    taon ng buhay na inialay para sa kalayaan ng kanyang bayan. Mula Calamba hanggang Bagumbayan.</p>
+                <div class="hero-stats">
+                    <div class="hstat"><span class="hstat-val">16</span><span class="hstat-lbl">Mga Bansa</span></div>
+                    <div class="hstat"><span class="hstat-val">35</span><span class="hstat-lbl">Taon ng Buhay</span>
+                    </div>
+                    <div class="hstat"><span class="hstat-val">2</span><span class="hstat-lbl">Nobela</span></div>
+                </div>
             </div>
+            <div class="hero-right">
+                <div class="corner corner-tl"></div>
+                <div class="corner corner-tr"></div>
+                <div class="corner corner-bl"></div>
+                <div class="corner corner-br"></div>
+                <div class="hero-scanline"></div>
+                <div class="hero-vignette"></div>
+                <span class="hero-caption">Jose Rizal · c.1890</span>
+                <span class="hero-index">01 / 16</span>
+                <img class="hero-img"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Jose_rizal_01.jpg/400px-Jose_rizal_01.jpg"
+                    alt="Jose Rizal" loading="eager">
+            </div>
+        </section>
 
+        <!-- MARQUEE -->
+        <div id="marquee">
+            <div class="mq-track">
+                <span class="mq-item"><span class="mq-gold">Bayaning Pilipino</span><span class="sep">·</span>Jose
+                    Protasio Rizal Mercado</span>
+                <span class="mq-item">Noli Me Tangere<span class="sep">·</span>1887<span
+                        class="sep">·</span>Berlin</span>
+                <span class="mq-item">El Filibusterismo<span class="sep">·</span>1891<span
+                        class="sep">·</span>Ghent</span>
+                <span class="mq-item"><span class="mq-gold">Pambansang Bayani</span><span class="sep">·</span>ng
+                    Pilipinas</span>
+                <span class="mq-item">Disyembre 30<span class="sep">·</span>1896<span
+                        class="sep">·</span>Bagumbayan</span>
+                <span class="mq-item">Doktor<span class="sep">·</span>Manunulat<span class="sep">·</span>Pintor<span
+                        class="sep">·</span>Eskultor</span>
+                <span class="mq-item"><span class="mq-gold">Dakilang Malayan</span><span class="sep">·</span>1861 –
+                    1896</span>
+                <span class="mq-item"><span class="mq-gold">Bayaning Pilipino</span><span class="sep">·</span>Jose
+                    Protasio Rizal Mercado</span>
+                <span class="mq-item">Noli Me Tangere<span class="sep">·</span>1887<span
+                        class="sep">·</span>Berlin</span>
+                <span class="mq-item">El Filibusterismo<span class="sep">·</span>1891<span
+                        class="sep">·</span>Ghent</span>
+                <span class="mq-item"><span class="mq-gold">Pambansang Bayani</span><span class="sep">·</span>ng
+                    Pilipinas</span>
+                <span class="mq-item">Disyembre 30<span class="sep">·</span>1896<span
+                        class="sep">·</span>Bagumbayan</span>
+                <span class="mq-item">Doktor<span class="sep">·</span>Manunulat<span class="sep">·</span>Pintor<span
+                        class="sep">·</span>Eskultor</span>
+                <span class="mq-item"><span class="mq-gold">Dakilang Malayan</span><span class="sep">·</span>1861 –
+                    1896</span>
+            </div>
+        </div>
+
+        <!-- CHAPTERS -->
+        <div id="chapters">
+            <div id="ch-sticky">
+                <div id="ch-progress"></div>
+                <div id="ch-track">
+                    <div class="ch-panel">
+                        <span class="ch-ghost">Simula</span>
+                        <div class="ch-left">
+                            <div class="ch-chapter-num"><span>01</span>
+                                <div class="ch-num-line"></div>Unang Kabanata
+                            </div>
+                            <span class="ch-heading">Pilipinas</span>
+                            <span class="ch-sub">Lupang Hinirang · 1861 – 1882</span>
+                            <p class="ch-body">Ipinanganak sa <strong>Calamba, Laguna</strong> noong Hunyo 19, 1861. Ang
+                                batang Rizal — na nagsimulang bumasa sa edad na tatlo — ay nag-aral sa Biñan, pagkatapos
+                                ay sa Ateneo Municipal de Manila, at nagtapos nang may pinakamataas na karangalan.</p>
+                            <div class="ch-divider"></div>
+                            <div class="ch-trio">
+                                <div class="ch-stat"><span class="ch-stat-val">1861</span><span
+                                        class="ch-stat-lbl">Ipinanganak</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">3</span><span class="ch-stat-lbl">Taon ·
+                                        Nagbasa Na</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">Laguna</span><span
+                                        class="ch-stat-lbl">Probinsiya</span></div>
+                            </div>
+                        </div>
+                        <div class="ch-right">
+                            <div class="ch-img-frame">
+                                <img class="ch-img"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg/640px-Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg"
+                                    alt="Calamba">
+                                <div class="ch-img-grad"></div><span class="ch-img-tag">Calamba, Laguna</span>
+                            </div>
+                            <span class="ch-vert-label">Kabanata Una</span>
+                        </div>
+                    </div>
+                    <div class="ch-panel">
+                        <span class="ch-ghost">Europa</span>
+                        <div class="ch-left">
+                            <div class="ch-chapter-num"><span>02</span>
+                                <div class="ch-num-line"></div>Ikalawang Kabanata
+                            </div>
+                            <span class="ch-heading gold">Europa</span>
+                            <span class="ch-sub">Ibayong-dagat · 1882 – 1891</span>
+                            <p class="ch-body">Sa Madrid, Paris, Heidelberg, at Berlin — isinulat ni Rizal ang dalawang
+                                nobela na nagpukaw sa mundo. Ang <strong>Noli Me Tangere</strong> (1887) at ang
+                                <strong>El Filibusterismo</strong> (1891) ay naging sandata ng kalayaan.</p>
+                            <div class="ch-divider"></div>
+                            <div class="ch-trio">
+                                <div class="ch-stat"><span class="ch-stat-val">9</span><span class="ch-stat-lbl">Taon sa
+                                        Europa</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">2</span><span
+                                        class="ch-stat-lbl">Nobela</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">5+</span><span
+                                        class="ch-stat-lbl">Bansa</span></div>
+                            </div>
+                        </div>
+                        <div class="ch-right">
+                            <div class="ch-img-frame">
+                                <img class="ch-img"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Noli_Me_Tangere_1st_edition_cover.jpg/400px-Noli_Me_Tangere_1st_edition_cover.jpg"
+                                    alt="Noli Me Tangere" style="object-position:center">
+                                <div class="ch-img-grad"></div><span class="ch-img-tag">Berlin, Alemanya · 1887</span>
+                            </div>
+                            <span class="ch-vert-label">Kabanata Dalawa</span>
+                        </div>
+                    </div>
+                    <div class="ch-panel">
+                        <span class="ch-ghost">Bayani</span>
+                        <div class="ch-left">
+                            <div class="ch-chapter-num"><span>03</span>
+                                <div class="ch-num-line"></div>Huling Kabanata
+                            </div>
+                            <span class="ch-heading">Dapitan</span>
+                            <span class="ch-sub">Pagkatapon · Pagpapakasakit · 1892 – 1896</span>
+                            <p class="ch-body">Ipinatapon sa Dapitan ngunit hindi natigilan. Nagtatag ng paaralan,
+                                ospital, at sistema ng tubig. Noong <strong>Disyembre 30, 1896</strong>, binaril siya sa
+                                Bagumbayan — ang apoy na naging mitsa ng Rebolusyon.</p>
+                            <div class="ch-divider"></div>
+                            <div class="ch-trio">
+                                <div class="ch-stat"><span class="ch-stat-val">4</span><span class="ch-stat-lbl">Taon sa
+                                        Dapitan</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">35</span><span class="ch-stat-lbl">Taon
+                                        ng Buhay</span></div>
+                                <div class="ch-stat"><span class="ch-stat-val">1896</span><span
+                                        class="ch-stat-lbl">Kamatayan</span></div>
+                            </div>
+                        </div>
+                        <div class="ch-right">
+                            <div class="ch-img-frame">
+                                <img class="ch-img"
+                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rizal_Monument_Luneta.jpg/640px-Rizal_Monument_Luneta.jpg"
+                                    alt="Luneta">
+                                <div class="ch-img-grad"></div><span class="ch-img-tag">Luneta, Maynila · 1896</span>
+                            </div>
+                            <span class="ch-vert-label">Kabanata Tatlo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div class="sec-divider">
+            <div class="sec-divider-line"></div>
+            <p>Lahat ng Destinasyon</p>
+        </div>
+
+        <!-- DESTINATIONS -->
+        <section id="destinations">
+            <div class="dest-head">
+                <div class="dest-head-left">
+                    <p class="dest-head-label">Mga Lugar · 16 na Destinasyon</p>
+                    <h2 class="dest-head-h2">Mga <em>Yapak</em><br>ni Rizal</h2>
+                </div>
+                <div class="dest-head-line"></div>
+                <div class="dest-head-right">
+                    <div class="dest-nav">
+                        <button class="dest-btn on" id="btn-all" onclick="showAll()">Lahat</button>
+                        <button class="dest-btn" id="btn-ph" onclick="filterPH()">Pilipinas</button>
+                        <button class="dest-btn" id="btn-abroad" onclick="filterAbroad()">Ibayong-dagat</button>
+                    </div>
+                    <div class="dest-search-wrap">
+                        <svg class="search-icon" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                            <circle cx="5" cy="5" r="4" stroke="#c9a84c" stroke-width="1" />
+                            <line x1="8.5" y1="8.5" x2="11" y2="11" stroke="#c9a84c" stroke-width="1"
+                                stroke-linecap="round" />
+                        </svg>
+                        <input class="dest-search" id="search" type="text" placeholder="Maghanap ng lugar…"
+                            onkeyup="searchData()" aria-label="Maghanap">
+                    </div>
+                </div>
+            </div>
+            <p id="result-count"></p>
+            <div class="card-grid" id="card-grid"></div>
+        </section>
+
+        <!-- DIVIDER -->
+        <div class="sec-divider">
+            <div class="sec-divider-line"></div>
+            <p>Talambuhay</p>
+        </div>
+
+        <!-- BIO -->
+        <section id="bio">
+            <div class="bio-head">
+                <p class="bio-head-label">Tungkol sa Bayani</p>
+                <h2 class="bio-head-h2">Si <em>Jose Rizal</em></h2>
+                <div class="bio-head-rule"></div>
+            </div>
             <div class="bio-grid">
                 <div class="bio-card" onclick="openBioModal(0)">
-                    <div class="bio-card-img-wrap">
-                        <img class="bio-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Jose_rizal_01.jpg/400px-Jose_rizal_01.jpg" alt="Young Rizal" loading="lazy">
+                    <div class="bio-img-wrap"><img class="bio-img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Jose_rizal_01.jpg/400px-Jose_rizal_01.jpg"
+                            alt="Young Rizal" loading="lazy">
+                        <div class="bio-img-fade"></div>
                     </div>
-                    <div class="bio-card-body">
-                        <div class="bio-icon">🌱</div>
-                        <h3>Maagang Buhay</h3>
-                        <div class="card-divider"></div>
-                        <p>Ipinanganak si Jose Protasio Rizal Mercado...</p>
-                        <span class="card-arrow">Magbasa Nang Higit Pa →</span>
+                    <div class="bio-body"><span class="bio-icon">🌱</span>
+                        <h3 class="bio-title">Maagang Buhay</h3>
+                        <div class="bio-rule"></div>
+                        <p class="bio-teaser">Ipinanganak si Jose Protasio Rizal noong Hunyo 19, 1861 sa Calamba,
+                            Laguna…</p><span class="bio-cta"><svg width="10" height="10" viewBox="0 0 10 10"
+                                fill="none">
+                                <line x1="1" y1="5" x2="9" y2="5" stroke="#c9a84c" stroke-width="1" />
+                                <polyline points="6,2 9,5 6,8" fill="none" stroke="#c9a84c" stroke-width="1" />
+                            </svg>Magbasa Nang Higit Pa</span>
                     </div>
                 </div>
-
                 <div class="bio-card" onclick="openBioModal(1)">
-                    <div class="bio-card-img-wrap">
-                        <img class="bio-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rizal_family.jpg/640px-Rizal_family.jpg" alt="Rizal Family" loading="lazy">
+                    <div class="bio-img-wrap"><img class="bio-img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rizal_family.jpg/640px-Rizal_family.jpg"
+                            alt="Rizal Family" loading="lazy">
+                        <div class="bio-img-fade"></div>
                     </div>
-                    <div class="bio-card-body">
-                        <div class="bio-icon">👨‍👩‍👧‍👦</div>
-                        <h3>Pamilya</h3>
-                        <div class="card-divider"></div>
-                        <p>Ang pamilya Mercado-Alonso ay isa sa mga iginagalang... </p>
-                        <span class="card-arrow">Magbasa Nang Higit Pa →</span>
+                    <div class="bio-body"><span class="bio-icon">👨‍👩‍👧‍👦</span>
+                        <h3 class="bio-title">Pamilya</h3>
+                        <div class="bio-rule"></div>
+                        <p class="bio-teaser">Ang pamilya Mercado-Alonso ay isa sa mga iginagalang na angkan…</p><span
+                            class="bio-cta"><svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                <line x1="1" y1="5" x2="9" y2="5" stroke="#c9a84c" stroke-width="1" />
+                                <polyline points="6,2 9,5 6,8" fill="none" stroke="#c9a84c" stroke-width="1" />
+                            </svg>Magbasa Nang Higit Pa</span>
                     </div>
                 </div>
-
                 <div class="bio-card" onclick="openBioModal(2)">
-                    <div class="bio-card-img-wrap">
-                        <img class="bio-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ateneo_Municipal_de_Manila_1880.jpg/640px-Ateneo_Municipal_de_Manila_1880.jpg" alt="Ateneo" loading="lazy">
+                    <div class="bio-img-wrap"><img class="bio-img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ateneo_Municipal_de_Manila_1880.jpg/640px-Ateneo_Municipal_de_Manila_1880.jpg"
+                            alt="Ateneo" loading="lazy">
+                        <div class="bio-img-fade"></div>
                     </div>
-                    <div class="bio-card-body">
-                        <div class="bio-icon">📚</div>
-                        <h3>Edukasyon</h3>
-                        <div class="card-divider"></div>
-                        <p>Nag-aral si Rizal sa Ateneo Municipal de Manila (1872-1877)...</p>
-                        <span class="card-arrow">Magbasa Nang Higit Pa →</span>
+                    <div class="bio-body"><span class="bio-icon">📚</span>
+                        <h3 class="bio-title">Edukasyon</h3>
+                        <div class="bio-rule"></div>
+                        <p class="bio-teaser">Nag-aral sa Ateneo Municipal de Manila (1872–1877), nagpatuloy sa UST…</p>
+                        <span class="bio-cta"><svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                <line x1="1" y1="5" x2="9" y2="5" stroke="#c9a84c" stroke-width="1" />
+                                <polyline points="6,2 9,5 6,8" fill="none" stroke="#c9a84c" stroke-width="1" />
+                            </svg>Magbasa Nang Higit Pa</span>
                     </div>
                 </div>
-
                 <div class="bio-card" onclick="openBioModal(3)">
-                    <div class="bio-card-img-wrap">
-                        <img class="bio-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Josephine_Bracken.jpg/400px-Josephine_Bracken.jpg" alt="Josephine Bracken" loading="lazy">
+                    <div class="bio-img-wrap"><img class="bio-img"
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Josephine_Bracken.jpg/400px-Josephine_Bracken.jpg"
+                            alt="Josephine Bracken" loading="lazy">
+                        <div class="bio-img-fade"></div>
                     </div>
-                    <div class="bio-card-body">
-                        <div class="bio-icon">❤️</div>
-                        <h3>Buhay-Pag-ibig</h3>
-                        <div class="card-divider"></div>
-                        <p>Segunda Katigbak (1877) - Ang unang pag-ibig...</p>
-                        <span class="card-arrow">Magbasa Nang Higit Pa →</span>
+                    <div class="bio-body"><span class="bio-icon">❤️</span>
+                        <h3 class="bio-title">Buhay-Pag-ibig</h3>
+                        <div class="bio-rule"></div>
+                        <p class="bio-teaser">Segunda Katigbak, Leonor Rivera, Josephine Bracken — ang mga babae…</p>
+                        <span class="bio-cta"><svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                                <line x1="1" y1="5" x2="9" y2="5" stroke="#c9a84c" stroke-width="1" />
+                                <polyline points="6,2 9,5 6,8" fill="none" stroke="#c9a84c" stroke-width="1" />
+                            </svg>Magbasa Nang Higit Pa</span>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- CLOSING -->
+        <section id="closing">
+            <p class="closing-label">Mga Simbolo ng Paglaban</p>
+            <div class="final-names" id="final-names">
+                <div class="fn-wrap"><span class="fn-name">Noli</span>
+                    <div class="fn-card"><span class="fn-card-rank">Unang Nobela</span><span class="fn-card-val">1887
+                            <span>taon</span></span>
+                        <p class="fn-card-detail">Noli Me Tangere<br>Berlin, Alemanya<br>Nagbunyag ng Kolonyalismo</p>
+                    </div>
+                </div>
+                <span class="fn-dot">.</span>
+                <div class="fn-wrap hero"><span class="fn-name">Rizal</span>
+                    <div class="fn-card"><span class="fn-card-rank">Pambansang Bayani</span><span
+                            class="fn-card-val">1861 <span>– 1896</span></span>
+                        <p class="fn-card-detail">Jose Protasio Rizal<br>Calamba, Laguna<br>Doktor · Manunulat ·
+                            Bayani<br>Binaril sa Bagumbayan</p>
+                    </div>
+                </div>
+                <span class="fn-dot">.</span>
+                <div class="fn-wrap"><span class="fn-name">Fili</span>
+                    <div class="fn-card"><span class="fn-card-rank">Ikalawang Nobela</span><span
+                            class="fn-card-val">1891 <span>taon</span></span>
+                        <p class="fn-card-detail">El Filibusterismo<br>Ghent, Belgium<br>Mas Mapanghimagsik<br>kaysa sa
+                            Noli</p>
+                    </div>
+                </div>
+            </div>
+            <p id="closing-hint">I-hover ang bawat pangalan</p>
+        </section>
+
         <footer>
-            <div class="footer-line"></div>
-            <p>© 2026 ANG PAGLALAKBAY NI RIZAL</p>
+            <p>© 2026 &nbsp;·&nbsp; Ang Paglalakbay ni Rizal &nbsp;·&nbsp; 1861 – 1896</p>
         </footer>
     </div>
 
-    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()">
-        <div class="modal-box" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal()" aria-label="Isara ang modal">×</button>
-            <div class="modal-img-wrap">
-                <img id="modalImg" src="" alt="">
-                <div class="modal-img-overlay"></div>
-                <div class="modal-img-label">
-                    <span class="mil-eyebrow" id="modalEyebrowSmall">DESTINASYON</span>
-                    <span class="mil-place" id="modalPlace">Lugar</span>
+    <!-- MODAL -->
+    <div id="modal-overlay" onclick="closeModal()">
+        <div id="modal-box" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModal()">×</button>
+            <div id="modal-img-wrap">
+                <img id="modal-img" src="" alt="">
+                <div class="modal-img-grad"></div>
+                <div id="modal-label">
+                    <span class="modal-eyebrow-sm" id="modal-eyebrow-sm"></span>
+                    <span class="modal-place" id="modal-place"></span>
                 </div>
             </div>
-            <div class="modal-inner">
-                <span class="modal-eyebrow" id="modalEyebrow">Kategorya</span>
-                <h2 id="modalTitle">Pamagat</h2>
-                <div class="modal-year" id="modalYear">Taon</div>
-                <div class="modal-divider"></div>
-                <p id="modalDesc">Deskripsyon...</p>
+            <div id="modal-body">
+                <p class="modal-cat" id="modal-cat"></p>
+                <h2 id="modal-title"></h2>
+                <p id="modal-year"></p>
+                <div class="modal-rule"></div>
+                <p id="modal-desc"></p>
             </div>
         </div>
     </div>
 
-    <button id="backToTop" aria-label="Bumalik sa itaas" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="2,9 7,4 12,9"/>
+    <button id="back-top" aria-label="Bumalik sa itaas" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2,8 6.5,3.5 11,8" />
         </svg>
     </button>
 
-    <div id="musicPlayer">
-        <button id="musicToggleBtn">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor">
-                <polygon points="3,1 13,7 3,13" />
+    <div id="music-player">
+        <button id="music-btn">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor">
+                <polygon points="3,1 12,6.5 3,12" />
             </svg>
         </button>
-        <div class="music-bars" id="musicBars">
-            <span></span><span></span><span></span><span></span>
-        </div>
-        <audio id="bgMusic" src="assets/Leonora (Live at The Cozy Cove) - Sugarcane.mp3" loop></audio>
+        <div class="music-bars" id="music-bars"><span></span><span></span><span></span><span></span></div>
+        <audio id="bg-audio" src="assets/Leonora (Live at The Cozy Cove) - Sugarcane.mp3" loop></audio>
     </div>
 
     <script src="script.js"></script>
-        
 </body>
+
 </html>
