@@ -30,6 +30,9 @@
         </div>
     </div>
 
+    <!-- ══ SOUND INDICATOR ══════════════════════════════════════ -->
+    <div id="sound-indicator" aria-hidden="true"></div>
+
     <!-- ══ EFFECTS ═════════════════════════════════════════════ -->
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
     <div id="progress-bar" role="progressbar" aria-hidden="true"></div>
@@ -114,8 +117,7 @@
                 <div class="hero-vignette" aria-hidden="true"></div>
                 <span class="hero-caption" aria-hidden="true">Jose Rizal · c.1890</span>
                 <span class="hero-index" aria-hidden="true">01 / 16</span>
-                <img class="hero-img"
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Jose_rizal_01.jpg/400px-Jose_rizal_01.jpg"
+                <img class="hero-img" src="assets/rizal_pictures/jose rizal and kineme.jpg"
                     alt="Larawan ni Jose Rizal, mga taong 1890" loading="eager" fetchpriority="high">
             </div>
 
@@ -207,8 +209,7 @@
                         </div>
                         <div class="ch-right">
                             <div class="ch-img-frame">
-                                <img class="ch-img"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg/640px-Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg"
+                                <img class="ch-img" src="assets/rizal_pictures/rizal shrine.jpg"
                                     alt="Rizal Shrine sa Calamba, Laguna" loading="lazy">
                                 <div class="ch-img-grad" aria-hidden="true"></div>
                                 <span class="ch-img-tag" aria-hidden="true">Calamba, Laguna</span>
@@ -256,8 +257,7 @@
                         </div>
                         <div class="ch-right">
                             <div class="ch-img-frame">
-                                <img class="ch-img"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Noli_Me_Tangere_1st_edition_cover.jpg/400px-Noli_Me_Tangere_1st_edition_cover.jpg"
+                                <img class="ch-img" src="assets/rizal_pictures/rizal shrine.jpg"
                                     alt="Unang edisyon ng Noli Me Tangere" loading="lazy"
                                     style="object-position:center">
                                 <div class="ch-img-grad" aria-hidden="true"></div>
@@ -305,8 +305,7 @@
                         </div>
                         <div class="ch-right">
                             <div class="ch-img-frame">
-                                <img class="ch-img"
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rizal_Monument_Luneta.jpg/640px-Rizal_Monument_Luneta.jpg"
+                                <img class="ch-img" src="assets/rizal_pictures/rizal shrine.jpg"
                                     alt="Monumento ni Rizal sa Luneta, Maynila" loading="lazy">
                                 <div class="ch-img-grad" aria-hidden="true"></div>
                                 <span class="ch-img-tag" aria-hidden="true">Luneta, Maynila · 1896</span>
@@ -379,8 +378,8 @@
                 <div class="dest-head-line" aria-hidden="true"></div>
                 <div class="dest-head-right">
                     <div class="dest-nav" role="group" aria-label="I-filter ang mga destinasyon">
-                        <button class="dest-btn on" id="btn-all" onclick="showAll()"">Lahat</button>
-            <button class=" dest-btn" id="btn-ph" onclick="filterPH()">Pilipinas</button>
+                        <button class="dest-btn on" id="btn-all" onclick="showAll()">Lahat</button>
+                        <button class=" dest-btn" id="btn-ph" onclick="filterPH()">Pilipinas</button>
                         <button class="dest-btn" id="btn-abroad" onclick="filterAbroad()">Ibayong-dagat</button>
                     </div>
                     <div class="dest-search-wrap">
@@ -616,7 +615,7 @@
         <div class="music-bars" id="music-bars" aria-hidden="true">
             <span></span><span></span><span></span><span></span>
         </div>
-        <audio id="bg-audio" src="assets/Leonora (Live at The Cozy Cove) - Sugarcane.mp3" loop preload="none"></audio>
+        <audio id="bg-audio" src="assets/SUGARCANE - Leonora (Official Lyric Video).mp3" loop preload="none"></audio>
     </div>
 
     <script src="script.js"></script>
