@@ -255,40 +255,114 @@ function initScrollBadge() {
 }
 
 /* ────────────────────────────────────────────────────────────
-   CHAPTER SCROLL (desktop horizontal sticky)
+   CHAPTER SNAP SLIDESHOW (desktop horizontal sticky)
    ──────────────────────────────────────────────────────────── */
 function initChapters() {
   const track = document.getElementById('ch-track');
   const prog = document.getElementById('ch-progress');
   const sec = document.getElementById('chapters');
   const dots = document.querySelectorAll('.ch-dot');
-  if (!track || !sec) return;
+  const panels = document.querySelectorAll('.ch-panel');
+  if (!track || !sec || !panels.length) return;
 
+  const PANEL_COUNT = panels.length;          // 3
   const isDesktop = () => window.innerWidth > 800;
 
-  const update = () => {
+  /* ── current (possibly fractional) slide index ── */
+  let currentSlide = 0;
+
+  /* ── Snap to an integer slide with CSS transition ── */
+  const goTo = (idx) => {
+    idx = Math.max(0, Math.min(PANEL_COUNT - 1, idx));
+    currentSlide = idx;
+
+    /* Slide the track with a smooth ease */
+    track.style.transition = 'transform 0.65s cubic-bezier(0.22, 1, 0.36, 1)';
+    track.style.transform = `translateX(-${idx * innerWidth}px)`;
+
+    /* Progress bar */
+    if (prog) prog.style.width = ((idx / (PANEL_COUNT - 1)) * 100) + '%';
+
+    /* Active dot */
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+
+    /* Panel entrance: fade-slide content in */
+    panels.forEach((p, i) => {
+      p.classList.toggle('ch-active', i === idx);
+      p.classList.toggle('ch-past', i < idx);
+      p.classList.toggle('ch-next', i > idx);
+    });
+  };
+
+  /* ── Map scroll position inside #chapters → snapped slide ── */
+  const updateFromScroll = () => {
     if (!isDesktop()) {
+      track.style.transition = '';
       track.style.transform = '';
       if (prog) prog.style.width = '0%';
       dots.forEach((d, i) => d.classList.toggle('active', i === 0));
       return;
     }
+
     const rect = sec.getBoundingClientRect();
     const total = sec.offsetHeight - innerHeight;
     const scrolled = Math.max(0, -rect.top);
     const p = Math.min(1, scrolled / total);
 
-    track.style.transform = `translateX(-${p * 2 * innerWidth}px)`;
-    if (prog) prog.style.width = (p * 100) + '%';
+    /* Map 0-1 → snapped slide index (0, 1, 2) */
+    const raw = p * PANEL_COUNT;
+    const snapped = Math.min(PANEL_COUNT - 1, Math.floor(raw));
 
-    // Update indicator dots
-    const idx = Math.min(dots.length - 1, Math.floor(p * dots.length));
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    if (snapped !== currentSlide) goTo(snapped);
   };
 
-  addEventListener('scroll', update, { passive: true });
-  addEventListener('resize', update);
-  update();
+  /* ── Keyboard navigation while #chapters is in viewport ── */
+  let inView = false;
+  const viewObs = new IntersectionObserver(entries => {
+    inView = entries[0].isIntersecting;
+  }, { threshold: 0.4 });
+  viewObs.observe(sec);
+
+  document.addEventListener('keydown', e => {
+    if (!inView || !isDesktop()) return;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+      e.preventDefault();
+      if (currentSlide < PANEL_COUNT - 1) {
+        /* Nudge scroll so next panel's zone is reached */
+        const targetP = (currentSlide + 1) / PANEL_COUNT + 0.01;
+        const targetScroll = sec.offsetTop + targetP * (sec.offsetHeight - innerHeight);
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      }
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      if (currentSlide > 0) {
+        const targetP = (currentSlide - 1) / PANEL_COUNT + 0.01;
+        const targetScroll = sec.offsetTop + targetP * (sec.offsetHeight - innerHeight);
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+      }
+    }
+  });
+
+  /* ── Dot click navigation ── */
+  dots.forEach((dot, i) => {
+    dot.style.cursor = 'pointer';
+    dot.addEventListener('click', () => {
+      const targetP = i / PANEL_COUNT + 0.01;
+      const targetScroll = sec.offsetTop + targetP * (sec.offsetHeight - innerHeight);
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    });
+  });
+
+  addEventListener('scroll', updateFromScroll, { passive: true });
+  addEventListener('resize', () => {
+    track.style.transition = '';
+    goTo(currentSlide);
+  });
+
+  /* initial */
+  goTo(0);
+  updateFromScroll();
 }
 
 /* ────────────────────────────────────────────────────────────
