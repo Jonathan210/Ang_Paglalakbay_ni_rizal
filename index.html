@@ -60,6 +60,8 @@
     <nav id="top-nav" aria-label="Pangunahing nabigasyon">
         <a class="nav-brand" href="#hero" aria-label="Tahanan">JR</a>
         <div class="nav-divider" aria-hidden="true"></div>
+
+        <!-- Desktop links -->
         <a class="nav-link" href="#hero">Tahanan</a>
         <div class="nav-dot" aria-hidden="true"></div>
         <a class="nav-link" href="#chapters">Kabanata</a>
@@ -71,7 +73,25 @@
         <a class="nav-link" href="#bio">Talambuhay</a>
         <div class="nav-dot" aria-hidden="true"></div>
         <a class="nav-link" href="#closing">Pamana</a>
+
+        <!-- Hamburger button (mobile only) -->
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Buksan ang menu" aria-expanded="false"
+            aria-controls="nav-mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </nav>
+
+    <!-- ══ MOBILE MENU ════════════════════════════════════════ -->
+    <div id="nav-mobile-menu" aria-hidden="true">
+        <a class="nav-mobile-link" href="#hero">Tahanan</a>
+        <a class="nav-mobile-link" href="#chapters">Kabanata</a>
+        <a class="nav-mobile-link" href="#timeline">Kronolohiya</a>
+        <a class="nav-mobile-link" href="#destinations">Destinasyon</a>
+        <a class="nav-mobile-link" href="#bio">Talambuhay</a>
+        <a class="nav-mobile-link" href="#closing">Pamana</a>
+    </div>
 
     <!-- ══ PAGE ═════════════════════════════════════════════════ -->
     <div class="page">
@@ -770,10 +790,49 @@
          FOOTER
          ══════════════════════════════════════════════════════ -->
         <footer role="contentinfo">
-            <div class="footer-inner">
+            <!-- Marquee row 1 — scrolls left -->
+            <div class="footer-mq-row" aria-hidden="true">
+                <div class="footer-mq-track footer-mq-fwd">
+                    <span class="footer-mq-item"><span class="footer-mq-icon">✦</span> Ang Paglalakbay ni Rizal <span
+                            class="footer-mq-sep"></span> Jonathan Lim <span class="footer-mq-sep"></span> Audrey Revil
+                        <span class="footer-mq-sep"></span> Sarah Selda <span class="footer-mq-sep"></span> Mellisa Ugot
+                        <span class="footer-mq-sep"></span> Ashly Leona</span>
+                    <span class="footer-mq-item"><span class="footer-mq-icon">✦</span> Ang Paglalakbay ni Rizal <span
+                            class="footer-mq-sep"></span> Jonathan Lim <span class="footer-mq-sep"></span> Audrey Revil
+                        <span class="footer-mq-sep"></span> Sarah Selda <span class="footer-mq-sep"></span> Mellisa Ugot
+                        <span class="footer-mq-sep"></span> Ashly Leona</span>
+                    <span class="footer-mq-item"><span class="footer-mq-icon">✦</span> Ang Paglalakbay ni Rizal <span
+                            class="footer-mq-sep"></span> Jonathan Lim <span class="footer-mq-sep"></span> Audrey Revil
+                        <span class="footer-mq-sep"></span> Sarah Selda <span class="footer-mq-sep"></span> Mellisa Ugot
+                        <span class="footer-mq-sep"></span> Ashly Leona</span>
+                </div>
+            </div>
+
+            <!-- Marquee row 2 — scrolls right (credits) -->
+            <div class="footer-mq-row footer-mq-row-credits" aria-hidden="true">
+                <div class="footer-mq-track footer-mq-rev">
+                    <span class="footer-mq-item footer-mq-item-sm"><span class="footer-mq-icon-sm">◆</span> 1861–1896
+                        <span class="footer-mq-sep"></span> Calamba hanggang Bagumbayan <span
+                            class="footer-mq-sep"></span> Doktor · Manunulat · Bayani <span
+                            class="footer-mq-sep"></span> Noli Me Tangere · El Filibusterismo <span
+                            class="footer-mq-sep"></span> 16 Bansa · 35 Taon</span>
+                    <span class="footer-mq-item footer-mq-item-sm"><span class="footer-mq-icon-sm">◆</span> 1861–1896
+                        <span class="footer-mq-sep"></span> Calamba hanggang Bagumbayan <span
+                            class="footer-mq-sep"></span> Doktor · Manunulat · Bayani <span
+                            class="footer-mq-sep"></span> Noli Me Tangere · El Filibusterismo <span
+                            class="footer-mq-sep"></span> 16 Bansa · 35 Taon</span>
+                    <span class="footer-mq-item footer-mq-item-sm"><span class="footer-mq-icon-sm">◆</span> 1861–1896
+                        <span class="footer-mq-sep"></span> Calamba hanggang Bagumbayan <span
+                            class="footer-mq-sep"></span> Doktor · Manunulat · Bayani <span
+                            class="footer-mq-sep"></span> Noli Me Tangere · El Filibusterismo <span
+                            class="footer-mq-sep"></span> 16 Bansa · 35 Taon</span>
+                </div>
+            </div>
+
+            <!-- Bottom credit line -->
+            <div class="footer-bottom" role="contentinfo">
                 <span class="footer-logo">Ang Paglalakbay ni Rizal</span>
-                <div class="footer-rule" aria-hidden="true"></div>
-                <p>Credits to:</p>
+                <span class="footer-bottom-sep" aria-hidden="true">·</span>
                 <p>Jonathan Lim &nbsp;·&nbsp; Audrey Revil &nbsp;·&nbsp; Sarah Selda &nbsp;·&nbsp; Mellisa Ugot
                     &nbsp;·&nbsp; Ashly Leona</p>
             </div>
