@@ -3179,3 +3179,81 @@ footer p {
     font-size: 1.2rem !important;
   }
 }
+
+/* ════════════════════════════════════════════════════════════
+   CHAPTER SNAP SLIDESHOW — panel state classes
+   ════════════════════════════════════════════════════════════ */
+
+/* Panels that haven't been seen yet sit slightly to the right */
+@media (min-width: 801px) {
+  .ch-panel .ch-left,
+  .ch-panel .ch-right {
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Default state (not yet reached) */
+  .ch-panel:not(.ch-active) .ch-left {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  .ch-panel:not(.ch-active) .ch-right {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+
+  /* Active (current) slide — everything slides in */
+  .ch-panel.ch-active .ch-left {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.08s;
+  }
+  .ch-panel.ch-active .ch-right {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.16s;
+  }
+
+  /* Past slides fade out to the left */
+  .ch-panel.ch-past .ch-left {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  .ch-panel.ch-past .ch-right {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  /* Progress bar transition matches panel snap */
+  #ch-progress {
+    transition: width 0.65s cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  /* Dots — bigger tap target, pointer cursor */
+  .ch-dot {
+    cursor: pointer !important;
+    width: 7px !important;
+    height: 7px !important;
+    transition:
+      background 0.3s,
+      transform 0.3s !important;
+  }
+  .ch-dot.active {
+    background: var(--gold) !important;
+    transform: scale(1.5) !important;
+  }
+  .ch-dot:hover:not(.active) {
+    background: rgba(201, 168, 76, 0.5) !important;
+    transform: scale(1.2) !important;
+  }
+
+  /* Ghost text animates in with active panel */
+  .ch-panel .ch-ghost {
+    transition: opacity 0.7s 0.2s ease;
+    opacity: 0;
+  }
+  .ch-panel.ch-active .ch-ghost {
+    opacity: 1;
+  }
+}
