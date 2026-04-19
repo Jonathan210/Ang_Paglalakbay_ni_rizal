@@ -9,82 +9,82 @@
    ──────────────────────────────────────────────────────────── */
 const journey = [
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg/640px-Rizal_Shrine_Outdoor_%28Calamba%2C_Laguna%29.jpg",
+    image: "assets/rizal_pictures/Rizal Shrine exterior.jpg",
     place: "Calamba, Laguna", country: "Pilipinas", year: "Hunyo 19, 1861", ph: true,
     desc: "Ipinanganak dito si Jose Rizal. Ang kanyang buong pangalan ay José Protasio Rizal Mercado y Alonso Realonda. Ang Calamba ay isang bayan sa baybayin ng Lawa ng Bay, at dito lumaki si Rizal sa isang maliwanag at masayang pamilya."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Jose_Rizal_statue_in_Binan_laguna.JPG/640px-Jose_Rizal_statue_in_Binan_laguna.JPG",
+    image: "assets/rizal_pictures/Biñan Church (San Isidro Labrador) facade.jpg",
     place: "Biñan, Laguna", country: "Pilipinas", year: "1869–1871", ph: true,
     desc: "Sa edad na walo, ipinadala si Rizal sa Biñan upang matuto ng Espanyol at Latin sa ilalim ng guro na si Maestro Justiniano Cruz. Dito napatunayan ng batang Rizal ang kanyang kahusayan sa pag-aaral."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ateneo_Municipal_de_Manila_1880.jpg/640px-Ateneo_Municipal_de_Manila_1880.jpg",
+    image: "assets/rizal_pictures/Ateneo de Manila facade (1887 photo).jpg",
     place: "Maynila", country: "Pilipinas", year: "1872–1882", ph: true,
     desc: "Nag-aral si Rizal sa Ateneo Municipal de Manila kung saan natapos niya ang kursong Bachelor of Arts nang may pinakamataas na karangalan. Dito niya naranasan ang diskriminasyon na nagpalakas ng kanyang pagnanais na lumaban."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Puerta_del_Sol_-_Sol_%28Madrid%29_13.jpg/640px-Puerta_del_Sol_-_Sol_%28Madrid%29_13.jpg",
+    image: "assets/rizal_pictures/Madrid Retiro Park.jpg",
     place: "Madrid, España", country: "España", year: "1882–1885", ph: false,
     desc: "Patago na naglakbay si Rizal patungong Europa upang ituloy ang kanyang pag-aaral. Nag-aral siya ng medisina at pilosopiya at nagsilbing bahagi ng Kilusang Propaganda."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Paris_-_Eiffelturm_und_Marsfeld2.jpg/640px-Paris_-_Eiffelturm_und_Marsfeld2.jpg",
+    image: "assets/rizal_pictures/Paris Eiffel Tower & Champ de Mars.jpg",
     place: "Paris, France", country: "France", year: "1885–1886", ph: false,
     desc: "Sa Paris, nagsanay si Rizal bilang isang espesyalista sa mata sa ilalim ng kilalang doktor na si Dr. Louis de Wecker. Layunin niyang matutunang gamutin ang sakit sa mata ng kanyang ina."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Wilhelmsfeld_Odenwald_01.jpg/640px-Wilhelmsfeld_Odenwald_01.jpg",
+    image: "assets/rizal_pictures/Wilhelmsfeld Village center.jpg",
     place: "Wilhelmsfeld, Alemanya", country: "Alemanya", year: "1886", ph: false,
     desc: "Namalagi si Rizal sa tahanan ng pastor na si Karl Ullmer. Dito siya naging bahagi ng lokal na pamayanan at nagsimulang sulatin ang kanyang nobelang 'Noli Me Tangere'."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Heidelberg_Old_Bridge_2013.jpg/640px-Heidelberg_Old_Bridge_2013.jpg",
+    image: "assets/rizal_pictures/Heidelberg Castle over the Neckar.jpg",
     place: "Heidelberg, Alemanya", country: "Alemanya", year: "1886", ph: false,
     desc: "Nag-aral si Rizal sa University of Heidelberg. Dito niya pinagyaman ang kanyang kaalaman sa opthalmolohiya at isinulat ang ilang tanyag na tula."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Noli_Me_Tangere_1st_edition_cover.jpg/400px-Noli_Me_Tangere_1st_edition_cover.jpg",
+    image: "assets/rizal_pictures/BerlinBrandenburg Gate.jpg",
     place: "Berlin, Alemanya", country: "Alemanya", year: "1886–1887", ph: false,
     desc: "Sa Berlin, nailathala ni Rizal ang 'Noli Me Tangere' noong 1887. Ang nobelang ito ay nagbunyag ng kasamaan ng kolonyalismong Espanyol."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Asakusa_Sensoji_2006.jpg/640px-Asakusa_Sensoji_2006.jpg",
+    image: "assets/rizal_pictures/Japan Meiji Shrine aerial.jpg",
     place: "Japan", country: "Japan", year: "1888", ph: false,
     desc: "Nabighani si Rizal sa kultura ng Japan. Nakilala niya ang isang babaeng Hapones na si Seiko Usui (O-Sei-San) na naging malapit sa kanya."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Hongkong_Victoria_Harbour.jpg/640px-Hongkong_Victoria_Harbour.jpg",
+    image: "assets/rizal_pictures/Hong KongVictoria Harbour night skyline.jpg",
     place: "Hong Kong", country: "Hong Kong", year: "1888", ph: false,
     desc: "Bumalik si Rizal mula sa Europa at nagtayo ng klinika sa Hong Kong. Dito pansamantalang nanirahan ang kanyang pamilya."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/British_Museum_Reading_Room_Panorama_Feb_2006.jpg/640px-British_Museum_Reading_Room_Panorama_Feb_2006.jpg",
+    image: "assets/rizal_pictures/London British Museum Great Court.jpg",
     place: "London, England", country: "UK", year: "1888–1889", ph: false,
     desc: "Nananaliksik si Rizal sa British Museum tungkol sa kasaysayan ng Pilipinas. Pinag-aralan niya ang 'Sucesos de las Islas Filipinas' ni Morga."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/BrusselsGrandPlace.jpg/640px-BrusselsGrandPlace.jpg",
+    image: "assets/rizal_pictures/Brussels Grand Place.jpg",
     place: "Brussels, Belgium", country: "Belgium", year: "1889–1891", ph: false,
     desc: "Lumipat si Rizal sa Brussels at nagsimulang sulatin ang 'El Filibusterismo'. Nanatili siya rito upang makatipid sa gastos sa Europa."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/El_Fil_cover.jpg/400px-El_Fil_cover.jpg",
+    image: "assets/rizal_pictures/Ghent Graslei canal.jpg",
     place: "Ghent, Belgium", country: "Belgium", year: "1891", ph: false,
     desc: "Sa Ghent nailathala ang 'El Filibusterismo' noong Setyembre 1891 sa tulong ni Valentin Ventura. Mas mapanghimagsik ito kaysa Noli."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Jose_Rizal_Shrine%2C_Dapitan%2C_Zamboanga_del_Norte.JPG/640px-Jose_Rizal_Shrine%2C_Dapitan%2C_Zamboanga_del_Norte.JPG",
+    image: "assets/rizal_pictures/Dapitan Rizal Shrine Dapitan (2023).jpg",
     place: "Dapitan, Zamboanga", country: "Pilipinas", year: "1892–1896", ph: true,
     desc: "Ipinatapon si Rizal sa Dapitan. Sa kabila nito, ginawa niyang progresibo ang lugar: nagtayo ng paaralan, ospital, at sistema ng tubig."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Fort_Santiago_Manila.jpg/640px-Fort_Santiago_Manila.jpg",
+    image: "assets/rizal_pictures/Fort Santiago Intramuros gate.jpg",
     place: "Maynila (Fort Santiago)", country: "Pilipinas", year: "1896", ph: true,
     desc: "Inakusahan si Rizal bilang tagapagtaguyod ng rebolusyon. Ipinakulong siya sa Fort Santiago bago ang kanyang huling paglilitis."
   },
   {
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Rizal_Monument_Luneta.jpg/640px-Rizal_Monument_Luneta.jpg",
+    image: "assets/rizal_pictures/Luneta Rizal Monument.jpg",
     place: "Luneta, Maynila", country: "Pilipinas", year: "Disyembre 30, 1896", ph: true,
     desc: "Binaril si Jose Rizal sa Bagumbayan. Ang kanyang kamatayan ang naging mitsa ng malawakang Rebolusyong Pilipino laban sa Espanya."
   }
@@ -94,25 +94,25 @@ const bioData = [
   {
     title: "Maagang Buhay", year: "1861", place: "Calamba, Laguna",
     cat: "TALAMBUHAY", tag: "MAAGANG BUHAY",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Jose_rizal_01.jpg/400px-Jose_rizal_01.jpg",
+    img: "assets/rizal_pictures/Bio_Maagang BuhayRizal age 7 (1868 photo).jpg",
     desc: "Ipinanganak si Jose Protasio Rizal Mercado y Alonso Realonda noong Hunyo 19, 1861 sa Calamba, Laguna. Siya ay ang ikapito sa labing-isang anak nina Francisco Engracio Rizal Mercado at Teodora Morales Alonso Realonda. Ang ina niya ang naging kanyang unang guro, nagturo sa kanya ng pagbasa at pagsulat. Sa edad na tatlo, alam na niya ang alpabeto; sa limang taon, kayang magbasa at magsulat."
   },
   {
     title: "Pamilya", year: "Mercado-Alonso", place: "Calamba",
     cat: "TALAMBUHAY", tag: "PAMILYA",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rizal_family.jpg/640px-Rizal_family.jpg",
+    img: "assets/rizal_pictures/Bio_PamilyaRizal Shrine Calamba.jpeg",
     desc: "Ang pamilya Mercado-Alonso ay isa sa mga iginagalang na angkan sa Calamba, Laguna. Ang ama ni Rizal na si Francisco Mercado ay nagmula sa isang pamilyang Tsino-Pilipino, habang ang kanyang ina na si Teodora Alonso ay nagmula sa isang kilalang pamilya sa Manila. Sila ay may labing-isang anak, at si Jose ay ikapito."
   },
   {
     title: "Edukasyon", year: "1872–1882", place: "Maynila",
     cat: "TALAMBUHAY", tag: "EDUKASYON",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Ateneo_Municipal_de_Manila_1880.jpg/640px-Ateneo_Municipal_de_Manila_1880.jpg",
+    img: "assets/rizal_pictures/Bio_EdukasyonAteneo de Manila facade.jpg",
     desc: "Nag-aral si Rizal sa Ateneo Municipal de Manila (1872–1877) kung saan nagtapos siya nang may pinakamataas na karangalan. Nagpatuloy siya sa University of Santo Tomas (1877–1882). Patago siyang naglakbay sa España noong 1882 para ituloy ang pag-aaral sa Universidad Central de Madrid. Nagtapos siya bilang Licentiate in Medicine at may doctorate in philosophy and letters."
   },
   {
     title: "Buhay-Pag-ibig", year: "1877–1896", place: "Iba't ibang Lugar",
     cat: "TALAMBUHAY", tag: "PAG-IBIG",
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Josephine_Bracken.jpg/400px-Josephine_Bracken.jpg",
+    img: "assets/rizal_pictures/Bio_Buhay-Pag-ibigJosephine Bracken portrait.jpg",
     desc: "Segunda Katigbak (1877) — ang unang pag-ibig ni Rizal sa Biñan. Leonor Rivera (1879–1890) — ang pinakamatagal na pag-ibig; inspirasyon ng karakter na si Maria Clara. Josephine Bracken (1895–1896) — ang huling pag-ibig, isang Irish-Filipino na naging katabi niya sa Dapitan, at kasal nila bago ang kanyang pagbitay."
   }
 ];
@@ -403,7 +403,7 @@ function renderCards(data) {
     return `
       <div class="card${item.ph ? ' ph' : ''}" onclick="openJourneyModal(${idx})">
         <div class="card-img-wrap">
-          <img class="card-img" src="${item.image}" alt="${item.place}" loading="lazy">
+          <img class="card-img" src="${encodeURI(item.image)}" alt="${item.place}" loading="lazy">
           <div class="card-fade"></div>
           <span class="card-badge">${item.ph ? 'Pilipinas' : 'Ibayong-dagat'}</span>
         </div>
@@ -466,7 +466,7 @@ window.searchData = function () {
    MODAL
    ──────────────────────────────────────────────────────────── */
 function setModal({ img, eyebrow, place, cat, title, year, desc }) {
-  document.getElementById('modal-img').src = img;
+  document.getElementById('modal-img').src = encodeURI(img);
   document.getElementById('modal-eyebrow-sm').textContent = eyebrow;
   document.getElementById('modal-place').textContent = place;
   document.getElementById('modal-cat').textContent = cat;
@@ -546,7 +546,7 @@ function initMusic() {
   if (!audio || !btn) return;
 
   // Set volume to 50%
-  audio.volume = 0.5;
+  audio.volume = 0.3;
 
   let playing = false;
   const playSvg = `<svg width="13" height="13" viewBox="0 0 13 13" fill="currentColor"><polygon points="3,1 12,6.5 3,12"/></svg>`;
