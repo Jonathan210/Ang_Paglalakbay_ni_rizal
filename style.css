@@ -2492,15 +2492,113 @@ body:not(.touch) * {
 footer {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: clamp(2rem, 4vw, 3rem) 2rem clamp(2.5rem, 5vw, 4rem);
-  border-top: 1px solid rgba(201, 168, 76, 0.1);
+  overflow: hidden;
+  border-top: 1px solid rgba(201, 168, 76, 0.12);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(13, 11, 8, 0.6) 100%
+  );
 }
-.footer-inner {
+
+/* ── Marquee rows ──────────────────────────────────────────── */
+.footer-mq-row {
+  overflow: hidden;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+  padding: 0.85rem 0;
+}
+.footer-mq-row-credits {
+  border-bottom: none;
+}
+
+.footer-mq-track {
   display: flex;
-  flex-direction: column;
+  width: max-content;
+  gap: 0;
+}
+
+/* Forward (left) scroll */
+.footer-mq-fwd {
+  animation: footerMqFwd 28s linear infinite;
+}
+/* Reverse (right) scroll */
+.footer-mq-rev {
+  animation: footerMqRev 36s linear infinite;
+}
+
+@keyframes footerMqFwd {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+@keyframes footerMqRev {
+  from {
+    transform: translateX(-33.333%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Pause on hover */
+footer:hover .footer-mq-fwd,
+footer:hover .footer-mq-rev {
+  animation-play-state: paused;
+}
+
+.footer-mq-item {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(0.9rem, 1.6vw, 1.25rem);
+  color: rgba(201, 168, 76, 0.55);
+  white-space: nowrap;
+  padding-right: clamp(2rem, 5vw, 4rem);
+  letter-spacing: 0.01em;
+}
+.footer-mq-item-sm {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: clamp(0.52rem, 0.75vw, 0.65rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.28);
+}
+
+.footer-mq-icon {
+  color: var(--gold);
+  margin-right: 0.6em;
+  font-style: normal;
+}
+.footer-mq-icon-sm {
+  color: rgba(201, 168, 76, 0.4);
+  margin-right: 0.8em;
+  font-size: 0.5em;
+  vertical-align: middle;
+}
+
+.footer-mq-sep {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.3;
+  margin: 0 clamp(0.8rem, 2vw, 1.6rem);
+  vertical-align: middle;
+}
+
+/* ── Bottom static credit line ─────────────────────────────── */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 0.6rem 1rem;
+  padding: clamp(1rem, 2.5vw, 1.8rem) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid rgba(201, 168, 76, 0.07);
 }
 .footer-logo {
   font-family: var(--serif);
@@ -2509,17 +2607,34 @@ footer {
   color: rgba(201, 168, 76, 0.7);
   letter-spacing: -0.01em;
 }
-footer p {
+.footer-bottom-sep {
+  color: rgba(201, 168, 76, 0.3);
+  font-size: 0.8rem;
+}
+.footer-bottom p {
   font-family: var(--mono);
   font-size: clamp(0.45rem, 0.6vw, 0.55rem);
   letter-spacing: 0.45em;
   text-transform: uppercase;
   color: rgba(245, 240, 232, 0.45);
+  white-space: nowrap;
 }
-.footer-rule {
-  width: 40px;
-  height: 1px;
-  background: rgba(201, 168, 76, 0.18);
+
+/* Mobile: stack bottom line */
+@media (max-width: 560px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: center;
+  }
+  .footer-bottom-sep {
+    display: none;
+  }
+  .footer-bottom p {
+    white-space: normal;
+    text-align: center;
+    letter-spacing: 0.3em;
+  }
 }
 
 /* ────────────────────────────────────────────────────────────
@@ -3531,5 +3646,149 @@ footer p {
   }
   .ch-panel.ch-active .ch-ghost {
     opacity: 1;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE NAV — Hamburger + Mobile Menu
+   ════════════════════════════════════════════════════════════ */
+
+/* Hamburger button — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  padding: 6px;
+  margin-left: auto;
+  background: none;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.25s;
+  z-index: 1000;
+}
+.nav-hamburger:hover {
+  border-color: rgba(201, 168, 76, 0.5);
+}
+.nav-hamburger span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--gold-light);
+  border-radius: 2px;
+  transition:
+    transform 0.3s var(--ease-out),
+    opacity 0.3s;
+  transform-origin: center;
+}
+
+/* Hamburger → X when open */
+.nav-hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Mobile slide-down menu */
+#nav-mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 997;
+  padding-top: 64px; /* clears the nav bar */
+  padding-bottom: 1.5rem;
+  background: rgba(13, 11, 8, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transform: translateY(-100%);
+  transition: transform 0.35s var(--ease-out);
+}
+#nav-mobile-menu.open {
+  transform: translateY(0);
+}
+.nav-mobile-link {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.9rem 2rem;
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 232, 0.78);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.07);
+  transition:
+    color 0.2s,
+    background 0.2s;
+  cursor: pointer;
+}
+.nav-mobile-link:last-child {
+  border-bottom: none;
+}
+.nav-mobile-link:hover,
+.nav-mobile-link:active {
+  color: var(--gold);
+  background: rgba(201, 168, 76, 0.05);
+}
+
+/* ── Breakpoint: tablet & mobile (≤ 768px) ─────────────────── */
+@media (max-width: 768px) {
+  /* Hide desktop nav links and dots */
+  #top-nav .nav-link,
+  #top-nav .nav-dot,
+  #top-nav .nav-divider {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .nav-hamburger {
+    display: flex;
+  }
+
+  /* Nav becomes brand + hamburger only */
+  #top-nav {
+    justify-content: space-between !important;
+    padding: 0.85rem var(--pad-x) !important;
+    gap: 0 !important;
+  }
+
+  /* Show mobile menu container (flex, but hidden off-screen) */
+  #nav-mobile-menu {
+    display: flex;
+  }
+
+  /* Push touch cursor off on mobile */
+  .nav-hamburger,
+  .nav-mobile-link {
+    cursor: pointer !important;
+  }
+}
+
+/* ── Extra-small phones (≤ 400px) ──────────────────────────── */
+@media (max-width: 400px) {
+  .nav-brand {
+    font-size: 0.92rem;
+  }
+  .nav-hamburger {
+    width: 34px;
+    height: 34px;
   }
 }
