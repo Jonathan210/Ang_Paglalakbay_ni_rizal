@@ -933,3 +933,47 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+/* ────────────────────────────────────────────────────────────
+   RESPONSIVE NAV — hamburger toggle
+   ──────────────────────────────────────────────────────────── */
+(function () {
+  const hamburger = document.getElementById('nav-hamburger');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  if (!hamburger || !mobileMenu) return;
+
+  function openMenu() {
+    mobileMenu.classList.add('open');
+    mobileMenu.setAttribute('aria-hidden', 'false');
+    hamburger.setAttribute('aria-expanded', 'true');
+    hamburger.setAttribute('aria-label', 'Isara ang menu');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    mobileMenu.classList.remove('open');
+    mobileMenu.setAttribute('aria-hidden', 'true');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.setAttribute('aria-label', 'Buksan ang menu');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function () {
+    const isOpen = mobileMenu.classList.contains('open');
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Close menu when a link is tapped
+  mobileMenu.querySelectorAll('.nav-mobile-link').forEach(function (link) {
+    link.addEventListener('click', closeMenu);
+  });
+
+  // Close menu on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  // Close menu when resizing back to desktop
+  window.addEventListener('resize', function () {
+    if (window.innerWidth > 768) closeMenu();
+  });
+})();
