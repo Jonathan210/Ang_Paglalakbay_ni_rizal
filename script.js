@@ -374,12 +374,18 @@ function buildTimeline() {
 
   const icons = ['🏡', '🏫', '🎓', '🏛️', '🗼', '🌿', '🎓', '📖', '⛩️', '🌊', '📚', '🏙️', '📘', '⛺', '🏰', '🌅'];
 
+  const ctaArrow = `<svg width="8" height="8" viewBox="0 0 10 10" fill="none"><line x1="1" y1="5" x2="9" y2="5" stroke="#c9a84c" stroke-width="1.2"/><polyline points="6,2 9,5 6,8" fill="none" stroke="#c9a84c" stroke-width="1.2"/></svg>`;
+
   track.innerHTML = journey.map((item, i) => `
     <div class="tl-item${item.ph ? ' ph' : ''}" data-index="${i}">
       <div class="tl-node">${icons[i] || '·'}</div>
-      <span class="tl-year">${item.year}</span>
-      <span class="tl-place">${item.place}</span>
-      <span class="tl-tag">${item.ph ? 'Pilipinas' : 'Ibayong-dagat'}</span>
+      <div class="tl-card-body">
+        <span class="tl-index">${String(i + 1).padStart(2, '0')} / ${journey.length}</span>
+        <span class="tl-year">${item.year}</span>
+        <span class="tl-place">${item.place}</span>
+        <span class="tl-tag">${item.ph ? 'Pilipinas' : 'Ibayong-dagat'}</span>
+        <span class="tl-cta">${ctaArrow} Tingnan</span>
+      </div>
     </div>
   `).join('');
 
