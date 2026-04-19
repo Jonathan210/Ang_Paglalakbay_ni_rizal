@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -58,11 +58,19 @@
 
     <!-- ══ TOP NAV ══════════════════════════════════════════════ -->
     <nav id="top-nav" aria-label="Pangunahing nabigasyon">
+        <a class="nav-brand" href="#hero" aria-label="Tahanan">JR</a>
+        <div class="nav-divider" aria-hidden="true"></div>
+        <a class="nav-link" href="#hero">Tahanan</a>
+        <div class="nav-dot" aria-hidden="true"></div>
+        <a class="nav-link" href="#chapters">Kabanata</a>
+        <div class="nav-dot" aria-hidden="true"></div>
         <a class="nav-link" href="#timeline">Kronolohiya</a>
         <div class="nav-dot" aria-hidden="true"></div>
         <a class="nav-link" href="#destinations">Destinasyon</a>
         <div class="nav-dot" aria-hidden="true"></div>
         <a class="nav-link" href="#bio">Talambuhay</a>
+        <div class="nav-dot" aria-hidden="true"></div>
+        <a class="nav-link" href="#closing">Pamana</a>
     </nav>
 
     <!-- ══ PAGE ═════════════════════════════════════════════════ -->
@@ -134,37 +142,235 @@
          MARQUEE
          ══════════════════════════════════════════════════════ -->
         <div id="marquee" aria-hidden="true">
-            <div class="mq-track">
-                <span class="mq-item"><span class="mq-gold">Bayaning Pilipino</span><span class="sep">·</span>Jose
-                    Protasio Rizal Mercado</span>
-                <span class="mq-item">Noli Me Tangere<span class="sep">·</span>1887<span
-                        class="sep">·</span>Berlin</span>
-                <span class="mq-item">El Filibusterismo<span class="sep">·</span>1891<span
-                        class="sep">·</span>Ghent</span>
-                <span class="mq-item"><span class="mq-gold">Pambansang Bayani</span><span class="sep">·</span>ng
-                    Pilipinas</span>
-                <span class="mq-item">Disyembre 30<span class="sep">·</span>1896<span
-                        class="sep">·</span>Bagumbayan</span>
-                <span class="mq-item">Doktor<span class="sep">·</span>Manunulat<span class="sep">·</span>Pintor<span
-                        class="sep">·</span>Eskultor</span>
-                <span class="mq-item"><span class="mq-gold">Dakilang Malayan</span><span class="sep">·</span>1861 –
-                    1896</span>
-                <!-- duplicated for seamless scroll -->
-                <span class="mq-item"><span class="mq-gold">Bayaning Pilipino</span><span class="sep">·</span>Jose
-                    Protasio Rizal Mercado</span>
-                <span class="mq-item">Noli Me Tangere<span class="sep">·</span>1887<span
-                        class="sep">·</span>Berlin</span>
-                <span class="mq-item">El Filibusterismo<span class="sep">·</span>1891<span
-                        class="sep">·</span>Ghent</span>
-                <span class="mq-item"><span class="mq-gold">Pambansang Bayani</span><span class="sep">·</span>ng
-                    Pilipinas</span>
-                <span class="mq-item">Disyembre 30<span class="sep">·</span>1896<span
-                        class="sep">·</span>Bagumbayan</span>
-                <span class="mq-item">Doktor<span class="sep">·</span>Manunulat<span class="sep">·</span>Pintor<span
-                        class="sep">·</span>Eskultor</span>
-                <span class="mq-item"><span class="mq-gold">Dakilang Malayan</span><span class="sep">·</span>1861 –
-                    1896</span>
+
+            <!-- Top row — scrolls left -->
+            <div class="mq-row mq-row-top">
+                <div class="mq-track mq-track-fwd">
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Bayaning Pilipino</span>
+                        <span class="mq-sep"></span>
+                        Jose Protasio Rizal Mercado
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">📖</span>
+                        Noli Me Tangere
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1887</span>
+                        <span class="mq-sep"></span>
+                        Berlin
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">📘</span>
+                        El Filibusterismo
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1891</span>
+                        <span class="mq-sep"></span>
+                        Ghent
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Pambansang Bayani</span>
+                        <span class="mq-sep"></span>
+                        ng Pilipinas
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">🕯️</span>
+                        Disyembre 30
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1896</span>
+                        <span class="mq-sep"></span>
+                        Bagumbayan
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Dakilang Malayan</span>
+                        <span class="mq-sep"></span>
+                        1861 – 1896
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">🌏</span>
+                        Doktor
+                        <span class="mq-sep"></span>
+                        Manunulat
+                        <span class="mq-sep"></span>
+                        Pintor
+                        <span class="mq-sep"></span>
+                        Eskultor
+                    </span>
+                    <!-- duplicate for seamless loop -->
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Bayaning Pilipino</span>
+                        <span class="mq-sep"></span>
+                        Jose Protasio Rizal Mercado
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">📖</span>
+                        Noli Me Tangere
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1887</span>
+                        <span class="mq-sep"></span>
+                        Berlin
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">📘</span>
+                        El Filibusterismo
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1891</span>
+                        <span class="mq-sep"></span>
+                        Ghent
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Pambansang Bayani</span>
+                        <span class="mq-sep"></span>
+                        ng Pilipinas
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">🕯️</span>
+                        Disyembre 30
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1896</span>
+                        <span class="mq-sep"></span>
+                        Bagumbayan
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">✦</span>
+                        <span class="mq-gold">Dakilang Malayan</span>
+                        <span class="mq-sep"></span>
+                        1861 – 1896
+                    </span>
+                    <span class="mq-item">
+                        <span class="mq-icon">🌏</span>
+                        Doktor
+                        <span class="mq-sep"></span>
+                        Manunulat
+                        <span class="mq-sep"></span>
+                        Pintor
+                        <span class="mq-sep"></span>
+                        Eskultor
+                    </span>
+                </div>
             </div>
+
+            <!-- Thin gold rule between rows -->
+            <div class="mq-divider" aria-hidden="true">
+                <div class="mq-divider-line"></div>
+                <div class="mq-divider-diamond"></div>
+                <div class="mq-divider-line"></div>
+            </div>
+
+            <!-- Bottom row — scrolls right (reverse) -->
+            <div class="mq-row mq-row-bot">
+                <div class="mq-track mq-track-rev">
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Calamba, Laguna
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1861</span>
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Madrid · Paris · Heidelberg
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        <span class="mq-gold-sm">Mi Último Adiós</span>
+                        <span class="mq-sep"></span>
+                        Huling Tula
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Ateneo de Manila
+                        <span class="mq-sep"></span>
+                        Universidad de Madrid
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Leonor Rivera
+                        <span class="mq-sep"></span>
+                        Josephine Bracken
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Fort Santiago
+                        <span class="mq-sep"></span>
+                        Dapitan
+                        <span class="mq-sep"></span>
+                        Luneta
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        <span class="mq-gold-sm">La Liga Filipina</span>
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1892</span>
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        16 na Bansa
+                        <span class="mq-sep"></span>
+                        35 Taon
+                        <span class="mq-sep"></span>
+                        Isang Pangarap
+                    </span>
+                    <!-- duplicate -->
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Calamba, Laguna
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1861</span>
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Madrid · Paris · Heidelberg
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        <span class="mq-gold-sm">Mi Último Adiós</span>
+                        <span class="mq-sep"></span>
+                        Huling Tula
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Ateneo de Manila
+                        <span class="mq-sep"></span>
+                        Universidad de Madrid
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Leonor Rivera
+                        <span class="mq-sep"></span>
+                        Josephine Bracken
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        Fort Santiago
+                        <span class="mq-sep"></span>
+                        Dapitan
+                        <span class="mq-sep"></span>
+                        Luneta
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        <span class="mq-gold-sm">La Liga Filipina</span>
+                        <span class="mq-sep"></span>
+                        <span class="mq-year">1892</span>
+                    </span>
+                    <span class="mq-item mq-item-sm">
+                        <span class="mq-icon-sm">◆</span>
+                        16 na Bansa
+                        <span class="mq-sep"></span>
+                        35 Taon
+                        <span class="mq-sep"></span>
+                        Isang Pangarap
+                    </span>
+                </div>
+            </div>
+
+            <!-- Edge fade masks -->
+            <div class="mq-fade-left" aria-hidden="true"></div>
+            <div class="mq-fade-right" aria-hidden="true"></div>
         </div>
 
         <!-- ══════════════════════════════════════════════════════
@@ -567,7 +773,9 @@
             <div class="footer-inner">
                 <span class="footer-logo">Ang Paglalakbay ni Rizal</span>
                 <div class="footer-rule" aria-hidden="true"></div>
-                <p>© 2026 &nbsp;·&nbsp; 1861 – 1896 &nbsp;·&nbsp; Pilipinas</p>
+                <p>Credits to:</p>
+                <p>Jonathan Lim &nbsp;·&nbsp; Audrey Revil &nbsp;·&nbsp; Sarah Selda &nbsp;·&nbsp; Mellisa Ugot
+                    &nbsp;·&nbsp; Ashly Leona</p>
             </div>
         </footer>
 
